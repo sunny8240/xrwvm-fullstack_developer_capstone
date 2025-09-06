@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dealerships - Contact Us</title>
+
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(120deg, #f0faff, #ffffff);
+      color: #333;
+    }
+
+    /* Navbar */
+    header {
+      background: linear-gradient(90deg, #0099cc, #00c9b7);
+      padding: 18px 50px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .navbar .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+    }
+
+    .navbar ul li a {
+      text-decoration: none;
+      font-size: 16px;
+      padding: 8px 16px;
+      border-radius: 30px;
+      transition: 0.3s;
+      color: #fff;
+    }
+
+    .navbar ul li a:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .navbar ul li a.active {
+      background: #fff;
+      color: #0099cc;
+      font-weight: 600;
+      box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Hero / Banner */
+    .hero {
+      text-align: center;
+      padding: 60px 20px 40px;
+    }
+
+    .hero img {
+      width: 80%;
+      max-width: 800px;
+      border-radius: 15px;
+      box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+
+    @keyframes fade {
+      from { opacity: 0.3; }
+      to { opacity: 0.8; }
+    }
+
+    /* Contact Section */
+    .contact-section {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      padding: 50px 10%;
+      flex-wrap: wrap;
+    }
+
+    .contact-card {
+      flex: 1;
+      min-width: 280px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 25px;
+      box-shadow: 0px 8px 25px rgba(0, 0, 0, 0.12);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-card h3 {
+      margin-bottom: 15px;
+      color: #0099cc;
+      font-size: 20px;
+    }
+
+    .contact-card p {
+      font-size: 15px;
+      margin: 8px 0;
+      color: #444;
+    }
+
+    .contact-card p b {
+      color: #000;
+    }
+
+    /* Icon */
+    .icon {
+      width: 70px;
+      height: 70px;
+      background: linear-gradient(135deg, #00c9b7, #0099cc);
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 auto 15px;
+      box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .icon img {
+      width: 40px;
+      filter: invert(1);
+    }
+
+    /* Footer */
+    footer {
+      background: #0099cc;
+      text-align: center;
+      color: #fff;
+      padding: 15px;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <header>
+    <nav class="navbar">
+      <div class="logo">Dealerships</div>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/about/">About Us</a></li>
+        <li><a href="/contact/" class="active">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Banner -->
+  <section class="hero">
+    <img src="/static/car_dealership.jpg" alt="Dealership Cars">
+  </section>
+
+  <!-- Contact Info -->
+  <section class="contact-section">
+    <div class="contact-card">
+      <div class="icon">
+        <img src="/static/contactus.png" alt="Customer Service">
+      </div>
+      <h3>Customer Service</h3>
+      <p><b>Email:</b> support@bestcars.com</p>
+      <p><b>Phone:</b> +1 312-611-1111</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/906/906349.png" alt="Advertising">
+      </div>
+      <h3>Advertising</h3>
+      <p><b>Email:</b> NationalSales@bestcars.com</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/889/889140.png" alt="PR Team">
+      </div>
+      <h3>Public Relations</h3>
+      <p><b>Email:</b> PR@bestcars.com</p>
+    </div>
+
+    <div class="contact-card">
+      <div class="icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/1161/1161388.png" alt="Partnership">
+      </div>
+      <h3>Become a Dealer</h3>
+      <p><b>Website:</b> growwithbestcars.com</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 BestCars Dealerships | Designed with ❤️</p>
+  </footer>
+</body>
+</html>

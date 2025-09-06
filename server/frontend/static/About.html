@@ -1,68 +1,211 @@
 <html>
 <head>
-  <!-- Link the style sheet here -->
+  <link rel="stylesheet" href="/static/bootstrap.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar */
+    .custom-navbar {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 15px 30px;
+      transition: background 0.3s ease;
+      z-index: 1000;
+    }
+    .custom-navbar .navbar-brand {
+      color: #ffcc00 !important;
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .custom-navbar .nav-link {
+      color: white !important;
+      margin-left: 20px;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
+    .custom-navbar .nav-link:hover,
+    .custom-navbar .nav-link.active {
+      color: #ffcc00 !important;
+    }
+    /* Fix navbar-toggler button */
+    .navbar-toggler {
+      border: none;
+    }
+    .navbar-toggler-icon {
+      filter: invert(1); /* make it white */
+    }
+
+    /* Hero Section */
+    .about-hero {
+      background: url('/static/car_dealership.jpg') center/cover no-repeat;
+      color: white;
+      text-align: center;
+      padding: 180px 20px 100px; /* extra padding due to fixed navbar */
+      position: relative;
+    }
+    .about-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+    }
+    .about-header-text {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      margin: auto;
+    }
+    .about-header-text h1 {
+      font-size: 3rem;
+      margin-bottom: 15px;
+    }
+    .about-header-text p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+
+    /* Team Section */
+    .team-section {
+      padding: 60px 20px;
+      text-align: center;
+      background: #f9f9f9;
+    }
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 40px;
+      color: #222;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .team-container {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    .team-card {
+      position: relative;
+      background: #fff;
+      border-radius: 12px;
+      padding: 2rem;
+      width: 300px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      overflow: hidden;
+    }
+    /* Stylish Top Border */
+    .team-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 6px;
+      width: 100%;
+      border-top-left-radius: 12px;
+      border-top-right-radius: 12px;
+    }
+    .team-card.ceo::before {
+      background: linear-gradient(90deg, #ff4e50, #f9d423);
+    }
+    .team-card.sales::before {
+      background: linear-gradient(90deg, #00c6ff, #0072ff);
+    }
+    .team-card.support::before {
+      background: linear-gradient(90deg, #43e97b, #38f9d7);
+    }
+    .team-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    }
+    .team-card img {
+      width: 100%;
+      height: 250px;
+      border-radius: 12px;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .team-card h3 {
+      margin-bottom: 5px;
+      color: #007bff;
+      font-weight: 600;
+    }
+    .team-card .role {
+      font-weight: bold;
+      color: #444;
+      margin-bottom: 10px;
+    }
+    .team-card p {
+      color: #555;
+      line-height: 1.5;
+    }
+    .team-card .email {
+      font-size: 0.9rem;
+      color: #007bff;
+      margin-top: 10px;
+      display: block;
+    }
+  </style>
 </head>
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light" style="background-color:darkturquoise; height: 1in;">
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg custom-navbar fixed-top">
     <div class="container-fluid">
-      <h2 style="padding-right: 5%;">Dealerships</h2>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <a class="navbar-brand" href="/">Dealerships</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" aria-current="page" href="/">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" style="font-size: larger;" href="/about">About Us</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" style="font-size: larger;" href="/contact">Contact Us</a>
-          </li>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link active" href="/about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
         </ul>
       </div>
     </div>
   </nav>
-  
-    <div class="card" style="width: 80%;margin: auto; margin-top:5%;">
-      <div class="banner" name="about-header">
-      <!-- Insert header information here -->
-      </div>
-      <div style="display: flex;flex-direction: row; margin:auto">
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person1</p>
-          <p>Person1 Title</p>
-          <p class="card-text">Some text that explains the person1 in about 2 short sentences</p>
-          <p>person1@example.com</p>
-        </div>
-      </div>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person2</p>
-          <p>Person2 Title</p>
-          <p class="card-text">Some text that explains the person2 in about 2 short sentences</p>
-          <p>person2@example.com</p>
-        </div>
-      </div>
+  <!-- Hero Section -->
+  <header class="about-hero">
+    <div class="about-header-text">
+      <h1>About Us</h1>
+      <p>Welcome to <strong>Best Cars Dealership</strong>, where quality meets trust. We specialize in both domestic and imported cars, making sure our customers get the best deals with excellent after-sales support.</p>
+    </div>
+  </header>
 
-      <div class="card" style="width: 30%;">
-        <img class="card-img-top" src="/static/person.png" alt="Card image">
-        <div class="card-body">
-          <p class="title">Person3</p>
-          <p>Person3 Title</p>
-          <p class="card-text">Some text that explains the person3 in about 2 short sentences</p>
-          <p>person3@example.com</p>
-        </div>
+  <!-- Team Section -->
+  <section class="team-section">
+    <h2 class="section-title">Meet Our Team</h2>
+    <div class="team-container">
+      <div class="team-card ceo">
+        <img src="/static/person.png" alt="Alice Johnson">
+        <h3>Alice Johnson</h3>
+        <p class="role">Founder & CEO</p>
+        <p>Alice has 20+ years of experience in the automotive industry. She is passionate about helping customers find their dream cars.</p>
+        <p class="email">alice@example.com</p>
+      </div>
+      <div class="team-card sales">
+        <img src="/static/person.png" alt="Bob Smith">
+        <h3>Bob Smith</h3>
+        <p class="role">Sales Manager</p>
+        <p>Bob ensures every customer gets the right deal and has a smooth car-buying experience.</p>
+        <p class="email">bob@example.com</p>
+      </div>
+      <div class="team-card support">
+        <img src="/static/person.png" alt="Carol Lee">
+        <h3>Carol Lee</h3>
+        <p class="role">Customer Support</p>
+        <p>Carol is dedicated to answering customer questions and ensuring after-sales satisfaction.</p>
+        <p class="email">carol@example.com</p>
       </div>
     </div>
-    </div>
-    </div>
-    
-</div>
+  </section>
 
+  <!-- Bootstrap JS -->
+  <script src="/static/bootstrap.bundle.min.js"></script>
+</body>
 </html>
