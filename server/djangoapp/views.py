@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
 
+from .restapis import get_request, analyze_review_sentiments, post_review
 from .models import CarMake, CarModel
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
@@ -97,17 +98,59 @@ def get_cars(request):
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
-# def get_dealerships(request):
-# ...
+def get_dealerships(request, state="All"):
+    """
+    Returns a list of all dealerships or by state if provided.
+    """
+    endpoint = "/fetchDealers" if state == "All" else f"/fetchDealers/{state}"
+    dealerships = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealers": dealerships})
+
 
 # Create a `get_dealer_reviews` view to render the reviews of a dealer
-# def get_dealer_reviews(request,dealer_id):
-# ...
+def get_dealer_reviews(request, dealer_id):
+    """
+    Returns reviews of a dealer with sentiment analysis.
+    """
+    if dealer_id:
+        endpoint = f"/fetchReviews/dealer/{dealer_id}"
+        reviews = get_request(endpoint)
+        for review_detail in reviews:
+            sentiment_result = analyze_review_sentiments(review_detail['review'])
+            # Ensure sentiment key exists
+            review_detail['sentiment'] = sentiment_result.get('sentiment', 'neutral')
+        return JsonResponse({"status": 200, "reviews": reviews})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
 
 # Create a `get_dealer_details` view to render the dealer details
-# def get_dealer_details(request, dealer_id):
-# ...
+def get_dealer_details(request, dealer_id):
+    """
+    Returns details of a specific dealer using dealer_id.
+    """
+    if dealer_id:
+        endpoint = f"/fetchDealer/{dealer_id}"
+        dealership = get_request(endpoint)
+        return JsonResponse({"status": 200, "dealer": dealership})
+    return JsonResponse({"status": 400, "message": "Bad Request"})
+
 
 # Create a `add_review` view to submit a review
-# def add_review(request):
-# ...
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def add_review(request):
+    """
+    Handles posting a dealer review. Only authenticated users can post.
+    """
+    if not request.user.is_authenticated:
+        return JsonResponse({"status": 403, "message": "Unauthorized"})
+
+    try:
+        data = json.loads(request.body)  # Parse incoming JSON
+        response = post_review(data)     # Send review to backend
+        if response:
+            return JsonResponse({"status": 200, "message": "Review added successfully", "response": response})
+        else:
+            return JsonResponse({"status": 500, "message": "Failed to add review"})
+    except Exception as e:
+        return JsonResponse({"status": 400, "message": f"Error in posting review: {e}"})
