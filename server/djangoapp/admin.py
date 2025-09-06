@@ -1,14 +1,9 @@
 from django.contrib import admin
 from .models import CarMake, CarModel
-
 # ===============================
 # Inline admin for CarModel
 # ===============================
 class CarModelInline(admin.TabularInline):
-    """
-    Allows editing CarModel(s) directly within CarMake admin page.
-    This provides a convenient way to manage all models of a make.
-    """
     model = CarModel
     extra = 1  # Number of empty forms to display
     fields = ('name', 'type', 'year', 'color', 'price')  # Fields to show inline
@@ -19,10 +14,6 @@ class CarModelInline(admin.TabularInline):
 # ===============================
 @admin.register(CarModel)
 class CarModelAdmin(admin.ModelAdmin):
-    """
-    Advanced admin for CarModel.
-    Provides list display, search, and filters.
-    """
     list_display = ('name', 'car_make', 'type', 'year', 'color', 'price')
     list_filter = ('car_make', 'type', 'year')
     search_fields = ('name', 'car_make__name', 'vin_number')
@@ -33,10 +24,7 @@ class CarModelAdmin(admin.ModelAdmin):
 # ===============================
 @admin.register(CarMake)
 class CarMakeAdmin(admin.ModelAdmin):
-    """
-    Admin for CarMake with inline CarModels.
-    Makes it easier to manage all models for a manufacturer in one page.
-    """
     list_display = ('name', 'country', 'founded_year')
     search_fields = ('name', 'country')
-    inlines = [CarModelInline]  # Attach CarModelInline here
+    inlines = [CarModelInline]
+#
