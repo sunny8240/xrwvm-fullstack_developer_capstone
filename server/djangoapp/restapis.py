@@ -63,7 +63,7 @@ def analyze_review_sentiments(text):
     Returns:
         str: Sentiment result (e.g., 'positive', 'negative', 'neutral')
     """
-     request_url = sentiment_analyzer_url+"analyze/"+text
+    request_url = sentiment_analyzer_url+"analyze/"+text
     try:
         # Call get method of requests library with URL and parameters
         response = requests.get(request_url)
