@@ -1,12 +1,12 @@
 # Uncomment the required imports before adding the code
 
 from django.shortcuts import render
-from django.http import HttpResponseRedirect, HttpResponse
+# from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
-from django.shortcuts import get_object_or_404, render, redirect
+# from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth import logout
-from django.contrib import messages
-from datetime import datetime
+# from django.contrib import messages
+# from datetime import datetime
 
 from .restapis import get_request, analyze_review_sentiments, post_review
 from .models import CarMake, CarModel
@@ -60,12 +60,13 @@ def registration(request):
     email = data['email']
     username_exist = False
     email_exist = False
+
     try:
-        # Check if user already exists
+
         User.objects.get(username=username)
         username_exist = True
     except:
-        # If not, simply log this is a new user
+
         logger.debug("{} is new user".format(username))
 
     # If it is a new user
@@ -74,10 +75,10 @@ def registration(request):
         user = User.objects.create_user(username=username, first_name=first_name, last_name=last_name,password=password, email=email)
         # Login the user and redirect to list page
         login(request, user)
-        data = {"userName":username,"status":"Authenticated"}
+        data = {"userName":username, "status":"Authenticated"}
         return JsonResponse(data)
     else :
-        data = {"userName":username,"error":"Already Registered"}
+        data = {"userName":username, "error":"Already Registered"}
         return JsonResponse(data)
 # ===============================
 # Car Data Views
@@ -138,8 +139,7 @@ def get_dealer_details(request, dealer_id):
 
 
 # Create a `add_review` view to submit a review
-from django.views.decorators.csrf import csrf_exempt
-
+#
 @csrf_exempt
 def add_review(request):
     """
