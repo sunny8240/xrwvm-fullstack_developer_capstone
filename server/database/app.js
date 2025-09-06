@@ -1,4 +1,4 @@
-// app.js
+/* jshint esversion: 8 */
 const express = require("express");
 const mongoose = require("mongoose");
 const fs = require("fs");
@@ -16,10 +16,10 @@ let reviews_data = [];
 let dealerships_data = [];
 
 try {
-  reviews_data = JSON.parse(fs.readFileSync("reviews.json", "utf8"))["reviews"];
-  dealerships_data = JSON.parse(fs.readFileSync("dealerships.json", "utf8"))[
-    "dealerships"
-  ];
+  const reviewsFile = JSON.parse(fs.readFileSync("reviews.json", "utf8"));
+  const dealersFile = JSON.parse(fs.readFileSync("dealerships.json", "utf8"));
+  reviews_data = reviewsFile.reviews;
+  dealerships_data = dealersFile.dealerships;
 } catch (err) {
   console.error("Error reading JSON files:", err);
 }
@@ -31,8 +31,8 @@ mongoose
   .catch((err) => console.error("MongoDB connection error:", err));
 
 // Import Mongoose models
-const Reviews = require("./review"); // Make sure review.js defines the Reviews schema
-const Dealerships = require("./dealership"); // Make sure dealership.js defines the Dealerships schema
+const Reviews = require("./review");
+const Dealerships = require("./dealership");
 
 // Load initial data
 (async () => {
