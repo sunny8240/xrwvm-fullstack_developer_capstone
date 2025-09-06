@@ -82,7 +82,13 @@ def get_cars(request):
         initiate()
 
     car_models = CarModel.objects.select_related('car_make')
-    cars = [{"CarModel": cm.name, "CarMake": cm.car_make.name} for cm in car_models]
+    cars = [
+        {
+            "CarModel": cm.name,
+            "CarMake": cm.car_make.name
+        }
+        for cm in car_models
+    ]
 
     return JsonResponse({"CarModels": cars})
 
@@ -106,7 +112,8 @@ def get_dealer_reviews(request, dealer_id):
         for review_detail in reviews:
             sentiment_result = analyze_review_sentiments(review_detail['review'])
             review_detail['sentiment'] = (
-                sentiment_result.get('sentiment', 'neutral') if sentiment_result else 'neutral'
+                sentiment_result.get('sentiment', 'neutral')
+                if sentiment_result else 'neutral'
             )
         return JsonResponse({"status": 200, "reviews": reviews})
 
@@ -143,7 +150,10 @@ def add_review(request):
                 "response": response
             })
         else:
-            return JsonResponse({"status": 500, "message": "Failed to add review"})
+            return JsonResponse({
+                "status": 500,
+                "message": "Failed to add review"
+            })
 
     except Exception as e:
         return JsonResponse({
