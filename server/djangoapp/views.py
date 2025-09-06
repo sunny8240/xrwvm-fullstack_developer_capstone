@@ -8,6 +8,7 @@ from django.contrib.auth import logout
 from django.contrib import messages
 from datetime import datetime
 
+from .models import CarMake, CarModel
 from django.http import JsonResponse
 from django.contrib.auth import login, authenticate
 import logging
@@ -77,6 +78,22 @@ def registration(request):
     else :
         data = {"userName":username,"error":"Already Registered"}
         return JsonResponse(data)
+# ===============================
+# Car Data Views
+# ===============================
+
+def get_cars(request):
+    """
+    Returns a JSON response of all car models along with their makes.
+    If database is empty, calls `initiate()` to populate sample data.
+    """
+    if CarMake.objects.count() == 0:
+        initiate()
+
+    car_models = CarModel.objects.select_related('car_make')
+    cars = [{"CarModel": cm.name, "CarMake": cm.car_make.name} for cm in car_models]
+
+    return JsonResponse({"CarModels": cars})
 
 # # Update the `get_dealerships` view to render the index page with
 # a list of dealerships
