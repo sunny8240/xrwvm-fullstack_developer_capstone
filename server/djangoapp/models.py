@@ -14,10 +14,7 @@ class CarMake(models.Model):
     founded_year = models.PositiveIntegerField(
         blank=True,
         null=True,
-        validators=[
-            MinValueValidator(1800),
-            MaxValueValidator(now().year)
-        ]
+        validators=[MinValueValidator(1800), MaxValueValidator(now().year)],
     )
 
     def __str__(self):
@@ -32,40 +29,27 @@ class CarModel(models.Model):
     car_make = models.ForeignKey(
         CarMake,
         on_delete=models.CASCADE,
-        related_name='models'
+        related_name="models",
     )
     name = models.CharField(max_length=100)
 
     CAR_TYPES = [
-        ('SEDAN', 'Sedan'),
-        ('SUV', 'SUV'),
-        ('WAGON', 'Wagon'),
-        ('HATCHBACK', 'Hatchback'),
-        ('COUPE', 'Coupe'),
-        ('CONVERTIBLE', 'Convertible'),
+        ("SEDAN", "Sedan"),
+        ("SUV", "SUV"),
+        ("WAGON", "Wagon"),
+        ("HATCHBACK", "Hatchback"),
+        ("COUPE", "Coupe"),
+        ("CONVERTIBLE", "Convertible"),
     ]
-    type = models.CharField(max_length=15, choices=CAR_TYPES, default='SEDAN')
+    type = models.CharField(max_length=15, choices=CAR_TYPES, default="SEDAN")
 
     year = models.IntegerField(
-        validators=[
-            MinValueValidator(2015),
-            MaxValueValidator(2023)
-        ],
-        default=2023
+        validators=[MinValueValidator(2015), MaxValueValidator(2023)],
+        default=2023,
     )
-    color = models.CharField(
-        max_length=30, 
-        blank=True, 
-        null=True)
-    price = models.DecimalField(
-        max_digits=10, 
-        decimal_places=2, 
-        blank=True, 
-        null=True)
-    vin_number = models.CharField(max_length=17, 
-        unique=True, 
-        blank=True, 
-        null=True)
+    color = models.CharField(max_length=30, blank=True, null=True)
+    price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
+    vin_number = models.CharField(max_length=17, unique=True, blank=True, null=True)
 
     def __str__(self):
         return f"{self.car_make.name} {self.name} ({self.year})"

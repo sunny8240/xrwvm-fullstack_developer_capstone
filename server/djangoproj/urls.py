@@ -5,46 +5,26 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('djangoapp/', include('djangoapp.urls')),
+    path("admin/", admin.site.urls),
+    path("djangoapp/", include("djangoapp.urls")),
+    path("", TemplateView.as_view(template_name="Home.html"), name="home"),
+    path("about/", TemplateView.as_view(template_name="About.html"), name="about"),
+    path("login/", TemplateView.as_view(template_name="index.html"), name="login"),
     path(
-        '',
-        TemplateView.as_view(template_name="Home.html"),
-        name='home'
+        "register/", TemplateView.as_view(template_name="index.html"), name="register"
     ),
     path(
-        'about/',
-        TemplateView.as_view(template_name="About.html"),
-        name='about'
+        "contact/", TemplateView.as_view(template_name="Contact.html"), name="contact"
     ),
+    path("dealers/", TemplateView.as_view(template_name="index.html"), name="dealers"),
     path(
-        'login/',
+        "dealer/<int:dealer_id>/",
         TemplateView.as_view(template_name="index.html"),
-        name='login'
+        name="dealer_detail",
     ),
     path(
-        'register/',
+        "postreview/<int:dealer_id>/",
         TemplateView.as_view(template_name="index.html"),
-        name='register'
-    ),
-    path(
-        'contact/',
-        TemplateView.as_view(template_name="Contact.html"),
-        name='contact'
-    ),
-    path(
-        'dealers/',
-        TemplateView.as_view(template_name="index.html"),
-        name='dealers'
-    ),
-    path(
-        'dealer/<int:dealer_id>/',
-        TemplateView.as_view(template_name="index.html"),
-        name='dealer_detail'
-    ),
-    path(
-        'postreview/<int:dealer_id>/',
-        TemplateView.as_view(template_name="index.html"),
-        name='post_review'
+        name="post_review",
     ),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
