@@ -12,7 +12,8 @@ backend_url = os.getenv(
     ),
 )
 sentiment_analyzer_url = os.getenv(
-    "sentiment_analyzer_url", default="http://localhost:5050/"
+    "sentiment_analyzer_url",
+    default="http://localhost:5050/"
 )
 
 
@@ -53,9 +54,9 @@ def analyze_review_sentiments(text):
 
     Args:
         text (str): Review text to analyze.
-    
+
     Returns:
-        str: Sentiment result ('positive', 'negative', 'neutral').
+        dict: Sentiment result ('positive', 'negative', 'neutral').
     """
     request_url = f"{sentiment_analyzer_url}analyze/{text}"
     try:
@@ -73,7 +74,7 @@ def post_review(data_dict):
 
     Args:
         data_dict (dict): Review data (dealerId, name, review, etc.).
-    
+
     Returns:
         dict: JSON response if successful, else None.
     """
