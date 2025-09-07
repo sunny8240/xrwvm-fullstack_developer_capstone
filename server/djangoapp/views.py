@@ -19,8 +19,8 @@ def login_user(request):
     Handle user login requests. Returns JSON with authentication status.
     """
     data = json.loads(request.body)
-    username = data["userName"]
-    password = data["password"]
+    username = data['userName']
+    password = data['password']
 
     user = authenticate(username=username, password=password)
     response_data = {"userName": username}
@@ -46,11 +46,11 @@ def registration(request):
     Handle user registration requests. Returns JSON with authentication status.
     """
     data = json.loads(request.body)
-    username = data["userName"]
-    password = data["password"]
-    first_name = data["firstName"]
-    last_name = data["lastName"]
-    email = data["email"]
+    username = data['userName']
+    password = data['password']
+    first_name = data['firstName']
+    last_name = data['lastName']
+    email = data['email']
 
     try:
         User.objects.get(username=username)
@@ -65,7 +65,7 @@ def registration(request):
             first_name=first_name,
             last_name=last_name,
             password=password,
-            email=email,
+            email=email
         )
         login(request, user)
         return JsonResponse({"userName": username, "status": "Authenticated"})
@@ -81,19 +81,8 @@ def get_cars(request):
     if CarMake.objects.count() == 0:
         initiate()
 
-<<<<<<< HEAD
-    car_models = CarModel.objects.select_related('car_make')
-    cars = [
-        {
-            "CarModel": cm.name,
-            "CarMake": cm.car_make.name
-        }
-        for cm in car_models
-    ]
-=======
     car_models = CarModel.objects.select_related("car_make")
     cars = [{"CarModel": cm.name, "CarMake": cm.car_make.name} for cm in car_models]
->>>>>>> b6bf7fc ("Flake8 Updated")
 
     return JsonResponse({"CarModels": cars})
 
@@ -115,18 +104,11 @@ def get_dealer_reviews(request, dealer_id):
         endpoint = f"/fetchReviews/dealer/{dealer_id}"
         reviews = get_request(endpoint)
         for review_detail in reviews:
-<<<<<<< HEAD
-            sentiment_result = analyze_review_sentiments(review_detail['review'])
-            review_detail['sentiment'] = (
-                sentiment_result.get('sentiment', 'neutral')
-                if sentiment_result else 'neutral'
-=======
             sentiment_result = analyze_review_sentiments(review_detail["review"])
             review_detail["sentiment"] = (
                 sentiment_result.get("sentiment", "neutral")
                 if sentiment_result
                 else "neutral"
->>>>>>> b6bf7fc ("Flake8 Updated")
             )
         return JsonResponse({"status": 200, "reviews": reviews})
 
@@ -157,13 +139,11 @@ def add_review(request):
         data = json.loads(request.body)
         response = post_review(data)
         if response:
-            return JsonResponse(
-                {
-                    "status": 200,
-                    "message": "Review added successfully",
-                    "response": response,
-                }
-            )
+            return JsonResponse({
+                "status": 200,
+                "message": "Review added successfully",
+                "response": response
+            })
         else:
             return JsonResponse({
                 "status": 500,
@@ -171,4 +151,7 @@ def add_review(request):
             })
 
     except Exception as e:
-        return JsonResponse({"status": 400, "message": f"Error in posting review: {e}"})
+        return JsonResponse({
+            "status": 400,
+            "message": f"Error in posting review: {e}"
+        })
