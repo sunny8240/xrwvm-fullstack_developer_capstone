@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const res = await fetch(window.location.origin + "/djangoapp/register", {
+      const res = await fetch(window.location.origin + "/djangoapp/register/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userName, password, firstName, lastName, email }),
